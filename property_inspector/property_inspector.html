@@ -8,17 +8,36 @@
 </head>
 <body>
 	<div class="sdpi-wrapper">
-		<!-- for more examples of the types of fields supported in property inspector visit:
-			Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
-			and
-			Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
-	-->
-		
-		<div class="sdpi-item" id="counter_value">
-			<div class="sdpi-item-label">Counter Value</div>
-			<input id="txtCounterValue" class="sdpi-item-value" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Enter counter number" onchange="setSettings(event.target.value, 'Counter')" />
-		</div>
+		<!-- select light -->
+		<div class="sdpi-item" id="select_light">
+			<div class="sdpi-item-label">Select</div>
+			<select class="sdpi-item-value select" id="light" onchange="setSettings(event.target.value, 'LightMacAddr');">
+				<option value="xx:xx:xx:xx:xx:xx">--Select a light--</option>
+				<option value="ff:ff:11:11:bb:9b" data-name="Light 1">Light 1</option>
+				<option value="ff:ff:50:03:10:3c" data-name="Light 2">Light 2</option>
+				<option value="ff:ff:66:60:cf:58" data-name="Light 3">Light 3</option>
+				<option value="ff:ff:77:70:b1:a4" data-name="Light 4">Light 4</option>
+				<option value="ff:ff:33:30:fe:ee" data-name="Light 5">Light 5</option>
+				<option value="ff:ff:44:42:77:82" data-name="Light 6">Light 6</option>
 
+			</select>
+		</div>
+		<!-- switch on/off -->
+		<div class="sdpi-item" id="select_switch"> 
+			<div class="sdpi-item-label">Switch</div>
+			<select class="sdpi-item-value select" id="switch" onchange="setSettings(event.target.value, 'Switch')">
+				<option value="cc2333">ON</option>
+				<option value="cc2433">OFF</option>
+				<option value="000000">--Select a Power--</option>
+			</select>
+		</div>
+		<!-- color -->
+		<div type="range" class="sdpi-item" id="colorslider" onchange="setSettings(event.target.value, 'Color')">
+			<div class="sdpi-item-label">Color</div>
+			<div class="sdpi-item-value">
+				<input type="color" id="color" value="#000000">
+			</div>
+		</div>
 	</div>
 	<script src="js/property-inspector.js"></script>
 </body>
