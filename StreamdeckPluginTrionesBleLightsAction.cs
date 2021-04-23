@@ -1,52 +1,51 @@
 ﻿using StreamDeckLib;
 using StreamDeckLib.Messages;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace BtTrionesBLELightStreamdeckPlugin
+namespace StreamdeckPluginTrionesBleLights
 {
-  [ActionUuid(Uuid="com.khundar.streamdecktrionesblelights.DefaultPluginAction")]
-  public class StreamdeckPluginTrionesBleLightsAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
-  {
-	public override async Task OnKeyUp(StreamDeckEventPayload args)
+	[ActionUuid(Uuid = "com.khundar.streamdecktrionesblelights.DefaultPluginAction")]
+	public class StreamdeckPluginTrionesBleLightsAction : BaseStreamDeckActionWithSettingsModel<Models.TrionesBLESettingsModel>
 	{
-	  SettingsModel.Counter++;
-	  await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
+		public override async Task OnKeyUp(StreamDeckEventPayload args)
+		{
 
-	  if (SettingsModel.Counter % 10 == 0)
-	  {
-		await Manager.ShowAlertAsync(args.context);
-	  }
-	  else if (SettingsModel.Counter % 15 == 0)
-	  {
-		await Manager.OpenUrlAsync(args.context, "https://www.bing.com");
-	  }
-	  else if (SettingsModel.Counter % 3 == 0)
-	  {
-		await Manager.ShowOkAsync(args.context);
-	  }
-	  else if (SettingsModel.Counter % 7 == 0)
-	  {
-		await Manager.SetImageAsync(args.context, "images/Fritz.png");
-	  }
+			//await Manager.SetTitleAsync(args.context, SettingsModel.Name);
+			ProcessStartInfo processInfo;
+			Process process;
+			string sshconnect = "ssh pi@192.168.0.32";
+			string stophci = "sudo hciconfig hci0 down";
+			string starthci = "sudo hciconfig hci0 up";
+			string gatttoolpwr = "sudo gatttool -b " + SettingsModel.LightMacAddr + " --char-write-req --handle=0x0007 --value=" + SettingsModel.Switch;
+			string gatttoolcolor = "sudo gatttool -b " + SettingsModel.LightMacAddr + " --char-write-req --handle=0x0007 --value=56" + SettingsModel.Color + "00f0aa";
+			string bashCmd = "\"" + stophci + " && " + starthci + " && " + gatttoolpwr + " && " + gatttoolcolor + " && " + stophci + "\"";
+			processInfo = new ProcessStartInfo("cmd.exe", "/c " + sshconnect + " " + bashCmd);
+			processInfo.CreateNoWindow = true;
+			processInfo.UseShellExecute = false;
+			processInfo.RedirectStandardError = true;
+			processInfo.RedirectStandardOutput = true;
 
-	  //update settings
-	  await Manager.SetSettingsAsync(args.context, SettingsModel);
+			process = Process.Start(processInfo);
+			process.WaitForExit();
+			process.Close();
+
+
+			//update settings
+			await Manager.SetSettingsAsync(args.context, SettingsModel);
+		}
+
+		public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
+		{
+			await base.OnDidReceiveSettings(args);
+			//await Manager.SetTitleAsync(args.context, SettingsModel.Name);
+		}
+
+		public override async Task OnWillAppear(StreamDeckEventPayload args)
+		{
+			await base.OnWillAppear(args);
+			//await Manager.SetTitleAsync(args.context, SettingsModel.Name);
+		}
+
 	}
-
-	public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
-	{
-	  await base.OnDidReceiveSettings(args);
-	  await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
-	}
-
-	public override async Task OnWillAppear(StreamDeckEventPayload args)
-	{
-	  await base.OnWillAppear(args);
-	  await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
-	}
-
-  }
 }
