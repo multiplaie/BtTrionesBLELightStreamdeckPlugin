@@ -6,39 +6,35 @@
       "States": [
         {
           "Image": "images/actionDefaultImage",
-          "TitleAlignment": "middle",
-          "FontSize": "16"
+          "TitleAlignment": "bottom",
+          "FontSize": "10"
         }
       ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "The first action for the StreamdeckPluginTrionesBleLights Stream Deck plugin",
+      "SupportedInMultiActions": true,
+      "Tooltip": "Control Triones BLE Lights",
       "UUID": "com.khundar.streamdecktrionesblelights.DefaultPluginAction"
     }
   ],
-	"Category": "Your Plugin Category",
-	"CategoryIcon": "images/category/categoryIcon",
-	"Disabled":  false,
-	"Author": "Your Name",
-	"CodePathWin": "BtTrionesBLELightStreamdeckPlugin.exe",
-	"CodePathMac":  "BtTrionesBLELightStreamdeckPlugin",
+  "Category": "Triones BLE Lights",
+  "CategoryIcon": "images/category/categoryIcon",
+  "Disabled": false,
+  "Author": "multiplaie",
+  "CodePathWin": "BtTrionesBLELightStreamdeckPlugin.exe",
+  "CodePathMac": "BtTrionesBLELightStreamdeckPlugin",
   "PropertyInspectorPath": "property_inspector/property_inspector.html",
-  "Description": "Description of StreamdeckPluginTrionesBleLights.",
+  "Description": "Control Triones BLE Lights",
   "Name": "StreamdeckPluginTrionesBleLights",
   "Icon": "images/pluginIcon",
-  "URL": "https://www.elgato.com/gaming/stream-deck",
+  "URL": "https://github.com/multiplaie/BtTrionesBLELightStreamdeckPlugin",
   "Version": "1.0",
-	"SDKVersion": 2,
-	"Software": {
-		"MinimumVersion":  "4.1"
-	},
-	"OS": [
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.1"
+  }, 
+  "OS": [
     {
-        "Platform": "mac",
-        "MinimumVersion" : "10.11"
-    },
-    {
-        "Platform": "windows",
-        "MinimumVersion" : "10"
+      "Platform": "windows",
+      "MinimumVersion": "10"
     }
   ]
 }
