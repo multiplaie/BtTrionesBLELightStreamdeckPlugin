@@ -48,6 +48,7 @@ You have just to select what you want and no need to save anything
 - Recap ssh connection to RPI
 - Power status off RPI 
 - Add French traduction
+- Hide color field if switch = off
 
 ## Source
 - [How to understand hack BLE device with your phone](https://urish.medium.com/reverse-engineering-a-bluetooth-lightbulb-56580fcb7546)
