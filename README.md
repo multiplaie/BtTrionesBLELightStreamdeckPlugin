@@ -47,6 +47,7 @@ You have just to select what you want and no need to save anything
 - Dynamic lights listing from config file
 - Recap ssh connection to RPI
 - Power status off RPI 
+- Add French traduction
 
 ## Source
 - [How to understand hack BLE device with your phone](https://urish.medium.com/reverse-engineering-a-bluetooth-lightbulb-56580fcb7546)
