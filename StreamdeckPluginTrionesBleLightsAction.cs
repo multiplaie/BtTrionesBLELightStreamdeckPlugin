@@ -14,12 +14,8 @@ namespace StreamdeckPluginTrionesBleLights
 			//await Manager.SetTitleAsync(args.context, SettingsModel.Name);
 			ProcessStartInfo processInfo;
 			Process process;
-			string sshconnect = "ssh pi@192.168.0.32";
-			string stophci = "sudo hciconfig hci0 down";
-			string starthci = "sudo hciconfig hci0 up";
-			string gatttoolpwr = "sudo gatttool -b " + SettingsModel.LightMacAddr + " --char-write-req --handle=0x0007 --value=" + SettingsModel.Switch;
-			string gatttoolcolor = "sudo gatttool -b " + SettingsModel.LightMacAddr + " --char-write-req --handle=0x0007 --value=56" + SettingsModel.Color + "00f0aa";
-			string bashCmd = "\"" + stophci + " && " + starthci + " && " + gatttoolpwr + " && " + gatttoolcolor + " && " + stophci + "\"";
+			string sshconnect = "ssh pi@192.168.0.73";
+			string bashCmd = "\"" + " sudo bash ./RedRoom/BLELightCtrl/LightCtrl.sh -c "+ SettingsModel.Color + " -l "+ SettingsModel.LightMacAddr + "\"";
 			processInfo = new ProcessStartInfo("cmd.exe", "/c " + sshconnect + " " + bashCmd);
 			processInfo.CreateNoWindow = true;
 			processInfo.UseShellExecute = false;
